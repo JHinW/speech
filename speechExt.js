@@ -1,10 +1,50 @@
 ﻿(function(global){
 
+    XMLHttpRequest.prototype.bindEventsForGet = function (callBack) {
+
+        var request = this;
+        function updateProgress() {
+            console.log("The transfer is progress.");
+
+        };
+        request.addEventListener("progress", updateProgress);
+
+        function transferComplete() {
+            console.log("The transfer is complete.");
+        };
+        request.addEventListener("load", transferComplete);
+
+        function transferFailed() {
+            console.log("An error occurred while transferring the file.");
+        };
+        request.addEventListener("error", transferFailed);
+
+        function transferCanceled() {
+            console.log("The transfer has been canceled by the user.");
+        };
+        request.addEventListener("abort", transferCanceled);
+
+        request.onload = function (data) {
+            if (typeof callBack === "function") {
+                callBack.call(null, data.srcElement);
+            }
+        };
+
+
+        return function (url) {
+            request.open("GET", url);
+            request.send();
+        };
+    }
+
+
     function BingSpeaker(req) {
         var t = this;
+        
         t.GetSettings = function (callback) {
             var url = "http://opgwebapi.chinacloudsites.cn/api/settings/BingSpeakerSettings";
-            t.urlForGet(req, url, callback);
+            var runner = req.bindEventsForGet(callback);
+            runner(url);
         }
     }
 
@@ -13,63 +53,29 @@
         
         t.GetSettings = function (callback) {
             var url = "http://opgwebapi.chinacloudsites.cn/api/Settings/LuisSettings";
-            t.urlForGet(req, url, callback);
+            var runner = req.bindEventsForGet(callback);
+            runner(url);
         }
     }
 
-    function urlForGet(req, url, callBack) {
-        req.open("GET", url);
-        req.addEventListener("load", function (data) {
-            if (typeof callBack === "function") {
-                callBack.call(null, data.srcElement);
-            }
-        });
-        req.send();
-    }
-
-    BingSpeaker.prototype.urlForGet = LuisCognitive.prototype.urlForGet = urlForGet;
+    //BingSpeaker.prototype.urlForGet = LuisCognitive.prototype.urlForGet = urlForGet;
 
 
 
     function SettingsFactory() {      
         var t = this;
+
         t.GetBingSpeakerObj = function () {
             var request = new XMLHttpRequest();
-            return new BingSpeaker(applyDefaultEvent(request));
+            return new BingSpeaker(request);
         }
 
         t.GetLuisCognitiveObj = function () {
             var request = new XMLHttpRequest();
-            return new LuisCognitive(applyDefaultEvent(request));
+            return new LuisCognitive(request);
         }
 
-        function applyDefaultEvent(request) {
-            function updateProgress() {
-                console.log("The transfer is progress.");
-
-            };
-            request.addEventListener("progress", updateProgress);
-
-            function transferComplete() {
-                console.log("The transfer is complete.");
-            };
-            request.addEventListener("load", transferComplete);
-
-            function transferFailed() {
-                console.log("An error occurred while transferring the file.");
-            };
-            request.addEventListener("error", transferFailed);
-
-            function transferCanceled() {
-                console.log("The transfer has been canceled by the user.");
-            };
-            request.addEventListener("abort", transferCanceled);
-            return request;
-        }
-
-        
-
-    }
+    } 
 
     
 
@@ -90,7 +96,17 @@
             document.getElementById("luis_appid").value = result.appId;
             document.getElementById("luis_subid").value = result.subKey;
         });
-        
     }
 
+    global.setSpeakerConfigs = function () {
+
+        bingSpeaker.GetSettings(function (data) {
+            var result = JSON.parse(data.responseText);
+
+            document.getElementById("key").value = result.speakerKey;
+        });
+
+        document.getElementById("luis_appid").value = "";
+        document.getElementById("luis_subid").value = "";
+    }
 })(window)
