@@ -69,7 +69,8 @@
     <Content Include="index.html" />
     <Content Include="speech.1.0.0.js" />
     <Content Include="speech.1.0.0.min.js" />
-    <Content Include="speechExt.js" />
+    <Content Include="speechActionExt.js" />
+    <Content Include="speechConfigExt.js" />
     <Content Include="Web.config" />
     <Content Include="whatstheweatherlike.wav" />
   </ItemGroup>
