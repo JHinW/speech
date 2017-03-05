@@ -68,6 +68,14 @@ var Microsoft;
                 MicrophoneRecognitionClient.prototype.endMicAndRecognition = function () {
                     this._sr.stop();
                 };
+                MicrophoneRecognitionClient.prototype.bindEvents = function (calls) {
+                    var _this = this;
+                    _this.onPartialResponseReceived = calls.onPartialResponseReceived;
+                    _this.onFinalResponseReceived = calls.onFinalResponseReceived;
+                    _this.onIntentReceived = calls.onIntentReceived;
+                    return _this;
+                }
+
                 return MicrophoneRecognitionClient;
             })();
             SpeechRecognition.MicrophoneRecognitionClient = MicrophoneRecognitionClient;            
@@ -111,6 +119,13 @@ var Microsoft;
                 DataRecognitionClient.prototype.endAudio = function () {
                     this._start = true;
                 };
+                DataRecognitionClient.prototype.bindEvents = function (calls) {
+                    var _this = this;
+                    _this.onPartialResponseReceived = calls.onPartialResponseReceived;
+                    _this.onFinalResponseReceived = calls.onFinalResponseReceived;
+                    _this.onIntentReceived = calls.onIntentReceived;
+                    return _this;
+                }
                 return DataRecognitionClient;
             })();
             SpeechRecognition.DataRecognitionClient = DataRecognitionClient;            

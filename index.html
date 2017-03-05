@@ -64,6 +64,18 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
             return null;
         }
 
+        var calls = {
+            onPartialResponseReceived : function (response) {
+                setText(response);
+            },
+            onFinalResponseReceived: function (response) {
+                setText(JSON.stringify(response));
+            },
+            onIntentReceived : function (response) {
+                setText(response);
+            }
+        };
+
         function start() {
             var mode = getMode();
             var luisCfg = getLuisConfig();
@@ -76,12 +88,12 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
                         getLanguage(),
                         getKey(),
                         luisCfg.appid,
-                        luisCfg.subid);
+                        luisCfg.subid).bindEvents(calls);
                 } else {
                     client = Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createMicrophoneClient(
                         mode,
                         getLanguage(),
-                        getKey());
+                        getKey()).bindEvents(calls);
                 }
                 client.startMicAndRecognition();
                 setTimeout(function () {
@@ -93,12 +105,12 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
                         getLanguage(),
                         getKey(),
                         luisCfg.appid,
-                        luisCfg.subid);
+                        luisCfg.subid).bindEvents(calls);
                 } else {
                     client = Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createDataClient(
                         mode,
                         getLanguage(),
-                        getKey());
+                        getKey()).bindEvents(calls);
                 }
                 request = new XMLHttpRequest();
                 request.open(
@@ -116,18 +128,6 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
 
                 request.send();
             }
-
-            client.onPartialResponseReceived = function (response) {
-                setText(response);
-            }
-
-            client.onFinalResponseReceived = function (response) {
-                setText(JSON.stringify(response));
-            }
-
-            client.onIntentReceived = function (response) {
-                setText(response);
-            };
         }
     </script>
     <script src="speechExt.js"></script>
