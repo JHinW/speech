@@ -77,6 +77,13 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
             }
         };
 
+        var globalHandle = null;
+        function endSpeaker() {
+            if (typeof globalHandle === "function") {
+                globalHandle.call(null);
+            }
+        }
+
         function start() {
             var mode = getMode();
             var luisCfg = getLuisConfig();
@@ -97,9 +104,11 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
                         getKey()).bindEvents(calls);
                 }
                 client.startMicAndRecognition();
-                setTimeout(function () {
+
+                globalHandle = function () {
                     client.endMicAndRecognition();
-                }, 5000);
+                }
+
             } else {
                 if (luisCfg) {
                     client = Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createDataClientWithIntent(
@@ -157,6 +166,7 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
             <td><button onclick="start()">Start</button>
                 <button onclick="setAllConfigs()">load settings(All)</button>
                 <button onclick="setSpeakerConfigs()">load settings(SpeakerOnly)</button>
+                <button onclick="endSpeaker()">End Speak</button>
             </td>
         </tr>
         <tr><td/>
