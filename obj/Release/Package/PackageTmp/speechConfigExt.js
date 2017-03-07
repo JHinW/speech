@@ -42,7 +42,7 @@
         var t = this;
         
         t.GetSettings = function (callback) {
-            var url = "http://opgwebapi.chinacloudsites.cn/api/settings/BingSpeakerSettings";
+            var url = "https://opgwebapi.chinacloudsites.cn/api/settings/BingSpeakerSettings";
             var runner = req.bindEventsForGet(callback);
             runner(url);
         }
@@ -52,7 +52,7 @@
         var t = this;
         
         t.GetSettings = function (callback) {
-            var url = "http://opgwebapi.chinacloudsites.cn/api/Settings/LuisSettings";
+            var url = "https://opgwebapi.chinacloudsites.cn/api/Settings/LuisSettings";
             var runner = req.bindEventsForGet(callback);
             runner(url);
         }

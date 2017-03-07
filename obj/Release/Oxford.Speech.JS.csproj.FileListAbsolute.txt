@@ -4,3 +4,9 @@ C:\Users\v-jiwag.FAREAST\Documents\Cognitive-Speech-STT-JavaScript-master\bin\Ox
 C:\Users\v-jiwag.FAREAST\Documents\Cognitive-Speech-STT-JavaScript-master\obj\Release\Oxford.Speech.JS.csprojResolveAssemblyReference.cache
 C:\Users\v-jiwag.FAREAST\Documents\Cognitive-Speech-STT-JavaScript-master\obj\Release\Oxford.Speech.JS.dll
 C:\Users\v-jiwag.FAREAST\Documents\Cognitive-Speech-STT-JavaScript-master\obj\Release\Oxford.Speech.JS.pdb
+C:\Users\v-jiwag\Desktop\src\speech\bin\Oxford.Speech.JS.dll.config
+C:\Users\v-jiwag\Desktop\src\speech\bin\Oxford.Speech.JS.dll
+C:\Users\v-jiwag\Desktop\src\speech\bin\Oxford.Speech.JS.pdb
+C:\Users\v-jiwag\Desktop\src\speech\obj\Release\Oxford.Speech.JS.csprojResolveAssemblyReference.cache
+C:\Users\v-jiwag\Desktop\src\speech\obj\Release\Oxford.Speech.JS.dll
+C:\Users\v-jiwag\Desktop\src\speech\obj\Release\Oxford.Speech.JS.pdb

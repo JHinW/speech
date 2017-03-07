@@ -72,10 +72,28 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
                 setText(JSON.stringify(response));
             },
             onIntentReceived: function (response) {
-
+                //JSON.parse(response)
+                var data = response
                 setText(response);
+                console.log(performance.now() - startUpTime);
             }
         };
+
+        var globalHandle = null;
+        var startUpTime = null;
+        var clients = {
+            speaker: null,
+            speakerWithLuis: null,
+            wav: null,
+            wavWithLuis: null
+        }
+        function endSpeaker() {
+            if (typeof globalHandle === "function") {
+                globalHandle.call(null);
+            }
+
+            startUpTime = performance.now();
+        }
 
         function start() {
             var mode = getMode();
@@ -85,30 +103,35 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
 
             if (useMic()) {
                 if (luisCfg) {
-                    client = Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createMicrophoneClientWithIntent(
+                    
+                    client = clients.speakerWithLuis = clients.speakerWithLuis || Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createMicrophoneClientWithIntent(
                         getLanguage(),
                         getKey(),
                         luisCfg.appid,
                         luisCfg.subid).bindEvents(calls);
+
+
                 } else {
-                    client = Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createMicrophoneClient(
+                    client = clients.speaker = clients.speaker || Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createMicrophoneClient(
                         mode,
                         getLanguage(),
                         getKey()).bindEvents(calls);
                 }
                 client.startMicAndRecognition();
-                setTimeout(function () {
+
+                globalHandle = function () {
                     client.endMicAndRecognition();
-                }, 5000);
+                }
+
             } else {
                 if (luisCfg) {
-                    client = Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createDataClientWithIntent(
+                    client =  clients.wavWithLuis = clients.wavWithLuis || Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createDataClientWithIntent(
                         getLanguage(),
                         getKey(),
                         luisCfg.appid,
                         luisCfg.subid).bindEvents(calls);
                 } else {
-                    client = Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createDataClient(
+                    client =  clients.wav = clients.wav || Microsoft.CognitiveServices.SpeechRecognition.SpeechRecognitionServiceFactory.createDataClient(
                         mode,
                         getLanguage(),
                         getKey()).bindEvents(calls);
@@ -157,6 +180,7 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
             <td><button onclick="start()">Start</button>
                 <button onclick="setAllConfigs()">load settings(All)</button>
                 <button onclick="setSpeakerConfigs()">load settings(SpeakerOnly)</button>
+                <button onclick="endSpeaker()">End Speak</button>
             </td>
         </tr>
         <tr><td/>
