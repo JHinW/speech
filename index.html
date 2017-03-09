@@ -44,7 +44,7 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
         }
 
         function getLanguage() {
-            return "en-us";
+            return document.getElementById("language").value;
         }
 
         function clearText() {
@@ -176,7 +176,12 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
                     <tr><td /><td><h1>Speech.JS</h1><h2>Microsoft Cognitive Services</h2></td></tr>
                     <tr>
                         <td align="right" />
-                        <td><input id="useMic" type="checkbox">Use Microphone</td>
+                        <td><input id="useMic" type="checkbox">Use Microphone
+                            <select id="language">
+                                <option value="en-us">Use English</option>
+                                <option value="zh-cn">Use Chinese</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td align="right"><A href="https://www.microsoft.com/cognitive-services/en-us/sign-up" target="_blank">Subscription</A>:</td>

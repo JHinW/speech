@@ -28,5 +28,4 @@
     global.addTableDetails = addTableDetails;
     global.content = content;
 
-
 })(window)
