@@ -66,7 +66,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\style.css" />
     <Content Include="index.html" />
+    <Content Include="js\table.js" />
     <Content Include="speech.1.0.0.js" />
     <Content Include="speech.1.0.0.min.js" />
     <Content Include="speechActionExt.js" />

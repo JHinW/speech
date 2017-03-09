@@ -1034,6 +1034,8 @@ var Bing;
                 };
                 if (_this.buffer && _this.buffer.byteLength && _this.offset) {
                     var view = new Uint8Array(_this.buffer, 0, _this.offset);
+                    //console.log("upload begin: " + performance.now());
+                    content.uploadBegin = performance.now();
                     request.send(view);
                 }
             });
