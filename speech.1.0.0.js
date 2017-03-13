@@ -829,17 +829,18 @@ var Bing;
                     break;
             }
         }
-        LuisClient.kServiceUrl = "https://api.projectoxford.ai/luis/v1/application?subscription-key=";
+        LuisClient.kServiceUrl = "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/";
         LuisClient.prototype.getIntent = function (text) {
             var task = new Task();
             var request = new XMLHttpRequest();
             request.open('GET', [
-                LuisClient.kServiceUrl, 
-                this._prefs.luisSubscriptionId, 
-                "&id=", 
-                this._prefs.luisAppId, 
-                "&q=", 
-                text
+                LuisClient.kServiceUrl + this._prefs.luisAppId,
+                "?subscription-key=",
+                this._prefs.luisSubscriptionId,
+                '&verbose=',
+                true,
+                "&q=",
+                text,
             ].join(""), true);
             request.onload = function () {
                 if (request.readyState == 4 && request.status === 200) {
@@ -1049,7 +1050,7 @@ var Bing;
             var _this = this;
             var reco;
             if (result.results && result.results.length > 0 && result.results[0].name) {
-                reco = result.results[0].name;
+                reco = result.results[0].lexical;
             }
             if (this.luis && this.onintent) {
                 this.luis.getIntent(reco).done(function (r) {
