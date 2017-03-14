@@ -1050,7 +1050,7 @@ var Bing;
             var _this = this;
             var reco;
             if (result.results && result.results.length > 0 && result.results[0].name) {
-                reco = result.results[0].lexical;
+                reco = result.results[0].name;
             }
             if (this.luis && this.onintent) {
                 this.luis.getIntent(reco).done(function (r) {
