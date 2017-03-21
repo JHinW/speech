@@ -57,11 +57,7 @@
             runner(url);
         }
     }
-
-    //BingSpeaker.prototype.urlForGet = LuisCognitive.prototype.urlForGet = urlForGet;
-
-
-
+    // BingSpeaker.prototype.urlForGet = LuisCognitive.prototype.urlForGet = urlForGet;
     function SettingsFactory() {      
         var t = this;
 
@@ -76,9 +72,6 @@
         }
 
     } 
-
-    
-
     var factory = new SettingsFactory();
     var luis = factory.GetLuisCognitiveObj();
     var bingSpeaker = factory.GetBingSpeakerObj();
@@ -109,4 +102,7 @@
         document.getElementById("luis_appid").value = "";
         document.getElementById("luis_subid").value = "";
     }
+
+
+
 })(window)

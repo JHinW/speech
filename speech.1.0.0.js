@@ -1004,6 +1004,7 @@ var Bing;
                     _this.dispatchError(-1);
                     return;
                 }
+
                 var serviceUrl = _this.preferences.serviceUri.replace("/ws/speech", "").replace("websockets.", "speech.");
                 writeline("connect: url " + serviceUrl);
                 var request = new XMLHttpRequest();
@@ -1038,6 +1039,13 @@ var Bing;
                     //console.log("upload begin: " + performance.now());
                     content.uploadBegin = performance.now();
                     request.send(view);
+
+                    sendAudioToServer(view, [
+                        "?locale=",
+                        _this.preferences.locale,
+                        "&format=",
+                        _this.responseFormat
+                    ].join(""), _this.sampleRate);
                 }
             });
         };
