@@ -56,6 +56,14 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
             document.getElementById("output").value += text;
         }
 
+        function clearComparisonText() {
+            document.getElementById("output01").value = "";
+        }
+
+        function setComparisonText(text) {
+            document.getElementById("output01").value += text;
+        }
+
         function getLuisConfig() {
             var appid = document.getElementById("luis_appid").value;
             var subid = document.getElementById("luis_subid").value;
@@ -110,6 +118,7 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
             var luisCfg = getLuisConfig();
 
             clearText();
+            clearComparisonText();
 
             if (useMic()) {
                 if (luisCfg) {
@@ -213,7 +222,9 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
                     </tr>
                     <tr>
                         <td />
-                        <td><a href="docs/speech.1.0.0.js/index.html" target="_blank">Speech.JS Documentation</a></td>
+                        <td>
+                            <textarea id="output01" style='width:400px;height:200px'></textarea>
+                        </td>
                     </tr>
                 </table>
             </td>

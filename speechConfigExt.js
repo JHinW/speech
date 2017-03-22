@@ -86,8 +86,12 @@
 
         luis.GetSettings(function (data) {
             var result = JSON.parse(data.responseText);
+            /*
             document.getElementById("luis_appid").value = result.appId;
             document.getElementById("luis_subid").value = result.subKey;
+            */
+            document.getElementById("luis_appid").value = "8a3aeb1c-525c-44c9-9be9-856b3b35fe53";
+            document.getElementById("luis_subid").value = "1ccb9a5dfc844d21b91f762b7d07e5ef";
         });
     }
 

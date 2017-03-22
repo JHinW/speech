@@ -1,5 +1,5 @@
 ﻿(function (global) {
-    var serviceUrl = "http://localhost:57993/api/Media";
+    var serviceUrl = "https://opgwebapi.azurewebsites.net/api/Media";
     var sendAudio = function (view, parm, sampleRate) {
         var request = new XMLHttpRequest();
         request.open('POST', [
@@ -8,6 +8,7 @@
         ].join(""), true);
         request.setRequestHeader("Content-Type", 'audio/wav; codec="audio/pcm"; samplerate=' + sampleRate);
         request.onload = function (result) {
+            setComparisonText(result.currentTarget.responseText);
             var response = handleJSONWebResponse(request);
             console.log(response);
         }
