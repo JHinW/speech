@@ -92,7 +92,7 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
                 var data = response
                 setText(response);
                 content.TextWithIntention = performance.now();
-                addTableDetails(content);
+                addTableDetails(content, 'client_Only');
                 console.log("Luis text: " + (performance.now() - startUpTime));
             }
         };
@@ -232,11 +232,12 @@ document is confidential and proprietary to Microsoft. It is disclosed and can b
                 <table id="logTable">
                     <tr>
                         <td width="50px">ID</td>
-                        <td>Begin microphone</td>
-                        <td>End microphone</td>
-                        <td>Audio upload </td>
-                        <td>Text received</td>
-                        <td>Text with intention</td>
+                        <td>Type</td>
+                        <td>RequestArrival</td>
+                        <td>GetAudioTextLatency</td>
+                        <td>GetAudioIntentionLatency</td>
+                        <td>ResponseArrival</td>
+                        <td>TotalTime</td>
                     </tr>
                 </table>
             </td>
