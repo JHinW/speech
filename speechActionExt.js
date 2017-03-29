@@ -10,7 +10,7 @@
         TotalTime : ""
     };
 
-    var serviceUrl = "https://opgwebapi.azurewebsites.net/api/Media";
+    var serviceUrl = "http://localhost:57993/api/Media";
     var beginTtime = null;
     var endTime = null;
     var sendAudio = function (view, parm, sampleRate) {
